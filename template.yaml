@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Local Tasks API – Lambda + API Gateway (TypeScript)
+  
+Globals:
+  Function:
+    Timeout: 10                # 10 seconds
+    Runtime: nodejs20.x        # Node.js 20 runtime
+    MemorySize: 256            # Memory for Lambda
+
+Resources:
+  # Lambda function for Tasks API
+  TasksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: tasks/                       # Folder containing built code
+      Handler: dist/app.handler             # Compiled JS entry point
+      Description: Handles CRUD for tasks
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /tasks
+            Method: ANY                     # Accepts all HTTP methods
+        DummyApi:
+          Type: Api
+          Properties:
+            Path: /tasks/dummy
+            Method: POST                    # POST endpoint for creating dummy tasks
