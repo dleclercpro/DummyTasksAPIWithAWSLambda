@@ -5,13 +5,13 @@ export const handler = async (event: APIGatewayProxyEvent | APIGatewayProxyEvent
   // Support both REST API (v1.0) and HTTP API (v2.0) formats
   const method = ('httpMethod' in event 
     ? event.httpMethod 
-    : event.requestContext?.http?.method || 'GET').toUpperCase();
-  
-  const dummyTasks = generateDummyTasks();
-  const taskTitles = dummyTasks.map(task => task.title);
+    : event.requestContext?.http?.method || '').toUpperCase();
 
   switch (method) {
     case 'GET':
+      const dummyTasks = generateDummyTasks();
+      const taskTitles = dummyTasks.map(task => task.title);
+
       return {
         statusCode: 200,
         headers: {
