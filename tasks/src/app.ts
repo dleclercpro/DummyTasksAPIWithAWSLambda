@@ -1,11 +1,8 @@
-import { APIGatewayProxyEvent, APIGatewayProxyEventV2, APIGatewayProxyResult } from 'aws-lambda';
+import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from 'aws-lambda';
 import { generateDummyTasks } from './tasks';
 
-export const handler = async (event: APIGatewayProxyEvent | APIGatewayProxyEventV2): Promise<APIGatewayProxyResult> => {
-  // Support both REST API (v1.0) and HTTP API (v2.0) formats
-  const method = ('httpMethod' in event 
-    ? event.httpMethod 
-    : event.requestContext?.http?.method || '').toUpperCase();
+export const handler = async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
+  const { method } = event.requestContext.http;
 
   switch (method) {
     case 'GET':

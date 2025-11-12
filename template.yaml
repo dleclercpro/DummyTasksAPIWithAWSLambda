@@ -18,12 +18,7 @@ Resources:
       Description: Handles CRUD for tasks
       Events:
         Api:
-          Type: Api
+          Type: HttpApi
           Properties:
             Path: /tasks
             Method: ANY                     # Accepts all HTTP methods
-        DummyApi:
-          Type: Api
-          Properties:
-            Path: /tasks/dummy
-            Method: POST                    # POST endpoint for creating dummy tasks
